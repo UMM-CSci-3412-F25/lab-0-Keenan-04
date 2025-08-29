@@ -4,8 +4,6 @@ name=$(basename "$directoryused", .tgz)
 here=$(pwd)
 scratch=$(mktemp -d)
 tar -xzf "$directoryused" -c "$scratch"
-grep -rl "delete me" . | while read -r file; do
-	rm "$file"
-done
+grep -rl "DELETE ME!" "$scratch/$name" | xargs rm -f
 cd "$scratch" || exit
 tar -czf "$here/cleaned_$directoryused" "$name"
